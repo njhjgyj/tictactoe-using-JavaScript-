@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, Initial-scale=1.0">
+    <title>Calculator</title>
+
+    <style>
+
+
+        * {
+
+            margin: 0px;
+            padding: 0px;
+
+        }
+
+        #main-div1 {
+
+            background-color: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+
+        }
+
+        #main-div2 {
+
+            display: flex;
+            width: 50%;
+            flex-wrap: wrap;
+            margin-top: 40px;
+
+        }
+
+        .div-class {
+
+            width: 30%;
+            height: 10vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50;
+            border: 1px solid black;
+            color: orange;
+            border-left: none;
+            border-top: none;
+
+        }
+
+
+        .div-class:nth-child(3n) {
+
+            border-right: none;
+
+        }
+
+
+        .div-class:nth-child(6n) ~ .div-class {
+
+            border-bottom: none;
+
+        }
+
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="main-div1">
+
+        <div id="main-div2">
+
+            <div class="div-class" id="div1">
+
+            </div>
+
+
+            <div class="div-class" id="div2">
+
+            </div>
+
+
+            <div class="div-class" id="div3">
+
+            </div>
+
+
+            <div class="div-class" id="div4">
+
+            </div>
+
+
+            <div class="div-class" id="div5">
+
+            </div>
+
+
+            <div class="div-class" id="div6">
+
+            </div>
+
+
+            <div class="div-class" id="div7">
+
+            </div>
+
+
+            <div class="div-class" id="div8">
+
+            </div>
+
+
+            <div class="div-class" id="div9">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+
+
+    let getDivClass = document.getElementsByClassName("div-class");
+
+    let firstClick = "O";
+    let secondClick = "X";
+    let currentPlayer = firstClick;
+    let getDivInnerTexts1 = [];
+    let getDivInnerTexts2 = [];
+
+    let arr1 = [null, null, null, null, null, null, null, null, null];
+
+
+
+    // let arrs = [
+
+    // ["div1", "div2", "div3"],
+    // ["div4", "div5", "div6"],
+    // ["div7", "div8", "div9"],
+    // ["div1", "div4", "div7"],
+    // ["div2", "div5", "div8"],
+    // ["div3", "div6", "div9"],
+    // ["div1", "div5", "div9"],
+    // ["div3", "div5", "div7"]
+
+    // ];
+
+
+
+    let arrs = [
+
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7]
+
+    ];
+
+
+
+    for (let i = 0; i < getDivClass.length; i++) {
+
+        getDivClass[i].addEventListener("click", clickFunction);
+
+        function clickFunction(e) {
+
+            // getDivClass[i].innerText = firstClick;
+
+
+
+            //getDivInnerTexts1.push(currentPlayer);
+            // console.log(getDivInnerTexts1);
+
+            // getDivInnerTexts2.push(firstClick);
+            // console.log(getDivInnerTexts2);
+
+
+
+            const id1 = e.target.id.slice(3);
+
+            if (!arr1[id1]) {
+
+                arr1[id1] = currentPlayer;
+                e.target.innerText = currentPlayer;
+
+
+
+
+
+                // if (firstClick == "O") {
+
+                // firstClick = secondClick
+
+                // } else {
+
+                // firstClick = "O"
+
+                // };
+
+
+
+                for (const conditions of arrs) {
+
+                    let [a,
+                        b,
+                        c] = conditions;
+
+                    if (arr1[a] && (arr1[a] == arr1[b] && arr1[a] == arr1[c])) {
+
+                        alert(currentPlayer + " player " + "is won");
+                        
+
+                        // getDivClass[0].removeEventListener("click", clickFunction);
+
+                        // getDivClass[1].removeEventListener("click", clickFunction);
+
+                        // getDivClass[2].removeEventListener("click", clickFunction);
+
+                        // getDivClass[3].removeEventListener("click", clickFunction);
+
+                        // getDivClass[4].removeEventListener("click", clickFunction);
+
+                        // getDivClass[5].removeEventListener("click", clickFunction);
+
+                        // getDivClass[6].removeEventListener("click", clickFunction);
+
+                        // getDivClass[7].removeEventListener("click", clickFunction);
+
+                        // getDivClass[8].removeEventListener("click", clickFunction);
+                        
+                        
+                        for (const getAllDivCllasses of getDivClass) {
+                            
+                            getAllDivCllasses.style.pointerEvents = "none";
+                            
+                        }
+                        
+                        alert("Wait 3 seconds for next game");
+                        
+                        setTimeout(() => {
+                            
+                            location.reload();
+                            
+                        }, 3000);
+
+                    }
+
+                }
+
+
+                if (currentPlayer == firstClick) {
+
+                    currentPlayer = secondClick;
+
+                } else {
+
+                    currentPlayer = firstClick;
+
+                };
+
+            }
+
+
+
+
+
+
+            getDivClass[i].removeEventListener("click", clickFunction);
+
+
+            if (getDivClass[0].innerText != "" && getDivClass[1].innerText != "" && getDivClass[2].innerText != "" && getDivClass[3].innerText != "" && getDivClass[4].innerText != "" && getDivClass[5].innerText != "" && getDivClass[6].innerText != "" && getDivClass[7].innerText != "" && getDivClass[8].innerText != "") {
+
+                alert("Game is Draw");
+
+            };
+
+        };
+
+    };
+
+
+</script>
+
+</html>
